@@ -58,35 +58,6 @@ app.get("/", async (req, res) => {
   }
 });
 
-// // Login endpoint
-// app.get("/login", async (req, res) => {
-//   try {
-//     const { email, password } = req.body;
-
-//     // Check if the user exists
-//     const user = await GetLogin.findOne({ gmail: email });
-//     if (!user) {
-//       return res.status(401).json({ error: "Invalid email or password" });
-//     }
-
-//     // Validate password
-//     const validPassword = await bcrypt.compare(password, user.password);
-//     if (!validPassword) {
-//       return res.status(401).json({ error: "Invalid email or password" });
-//     }
-
-//     // Generate a JWT token
-//     const token = jwt.sign({ id: user._id }, "your_jwt_secret_key", {
-//       expiresIn: "1h",
-//     });
-
-//     return res.status(200).json({ token, user });
-//   } catch (error) {
-//     console.error(error);
-//     return res.status(500).json({ error: "Internal Server Error" });
-//   }
-// });
-
 //add a product
 app.post("/addproduct", async (req, res) => {
   try {
