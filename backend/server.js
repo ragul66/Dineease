@@ -13,6 +13,10 @@ const app = express();
 const PORT = process.env.PORT || 5001;
 
 app.use(express.json());
+
+const JWT_SECRET =
+  "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTcxNjMxNTE3MiwiaWF0IjoxNzE2MzE1MTcyfQ.Y-F8oKh5cVVtncvCUgluiRaooOjDW4TWQKfFBcQsZiQ";
+
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -29,10 +33,12 @@ app.post("/register", async (req, res) => {
         .json({ error: "User with this email already exists" }); // 409 Conflict
     }
 
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     // Create a new instance of the GetLogin model
     const newRegister = new GetLogin({
       name,
-      password,
+      password: hashedPassword,
       crt_pass,
       gmail,
     });
@@ -47,11 +53,26 @@ app.post("/register", async (req, res) => {
   }
 });
 
-// // get register details
-app.get("/", async (req, res) => {
+// Login route
+app.post("/login", async (req, res) => {
   try {
-    const logins = await GetLogin.find({});
-    return res.status(200).json(logins);
+    const { gmail, password } = req.body;
+
+    const user = await GetLogin.findOne({ gmail });
+    if (!user) {
+      return res.status(401).json({ error: "Invalid email or password" });
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ error: "Invalid email or password" });
+    }
+
+    const token = jwt.sign({ id: user._id, gmail: user.gmail }, JWT_SECRET, {
+      expiresIn: "1h",
+    });
+
+    return res.status(200).json({ token });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal Server Error" });

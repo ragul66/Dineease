@@ -7,6 +7,8 @@ import './index.css'
 import Register from './components/Register'
 import Dining from './components/Dining'
 import Home1 from './components/Home1'
+import Vegeterian from './Pages/Vegeterian'
+import NonVegeterian from './Pages/NonVegeterian'
 
 
 
@@ -26,6 +28,14 @@ const router = createBrowserRouter([
   {
     path: "/dining",
     element: <Dining />
+  },
+  {
+    path: "/Vegeterian",
+    element: <Vegeterian />
+  },
+  {
+    path: "/Non-vegetarian",
+    element: <NonVegeterian />
   }
 ])
 

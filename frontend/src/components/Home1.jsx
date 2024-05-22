@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import useAuth from '../authentication/useAuth.jsx';
 import background from '../assets/background.avif';
 import home1 from '../assets/home 1.avif';
 import home2 from '../assets/home2.avif';
@@ -12,6 +13,14 @@ import collect4 from '../assets/collect4.avif'
 
 const Home1 = () => {
     const navigate = useNavigate();
+
+
+    const isAuthenticated = useAuth();
+
+    if (!isAuthenticated) {
+        navigate('/')
+        return null; // Or a loading spinner
+    }
 
     const imageadata = [
         {

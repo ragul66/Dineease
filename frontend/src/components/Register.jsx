@@ -28,7 +28,7 @@ const Register = () => {
 
 
             if (response.status === 201) {
-                window.location = "/home";
+                window.location = "/";
             } else if (response.status === 409) {
                 alert('User with this email already exists');
             } else {

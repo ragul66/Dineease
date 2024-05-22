@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import veg from '../assets/images/Vegetarian.png'
 import nonveg from '../assets/images/non-vegeterian.jpg'
 import chinese from '../assets/images/chinese.jpg'
@@ -9,8 +10,11 @@ import astoria from '../assets/images/astoriahotel.jpg'
 import moskva from '../assets/images/moskvahotel.jpg'
 import add from '../assets/images/add.avif'
 const App = () => {
+
+    const navigate = useNavigate()
+
     const favorites = [
-        { name: 'Vegetarian', image: veg },
+        { name: 'Vegeterian', image: veg },
         { name: 'Non-vegetarian', image: nonveg },
         { name: 'Chinese', image: chinese },
         { name: 'Korean', image: Korean },
@@ -30,6 +34,11 @@ const App = () => {
         { type: 'Comedy Shows', count: '6 Events' },
         { type: 'Music Shows', count: '4 Events' },
     ];
+
+
+    const handleFavoriteClick = (name) => {
+        navigate(`/${name.toLowerCase().replace(/ /g, '-')}`)
+    }
 
     return (
         <div className="min-h-screen bg-gray-100 font-primary">
@@ -67,9 +76,10 @@ const App = () => {
             {/* Favorites */}
             <section className="container mx-auto px-4 py-8 ">
                 <h2 className="text-2xl font-bold mb-4">Choose your Favorites</h2>
-                <div className="grid grid-cols-6 gap-4">
+                <div className="grid grid-cols-6 gap-4 cursor-pointer">
                     {favorites.map((favorite) => (
-                        <div key={favorite.name} className="bg-white p-4 shadow rounded-lg text-center hover:scale-105 duration-500">
+                        <div key={favorite.name} className="bg-white p-4 shadow rounded-lg text-center hover:scale-105 duration-500"
+                            onClick={() => handleFavoriteClick(favorite.name)}>
                             <img src={favorite.image} alt={favorite.name} className="mx-auto mb-2" />
                             <p>{favorite.name}</p>
                         </div>
