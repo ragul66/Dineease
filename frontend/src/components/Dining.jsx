@@ -56,7 +56,7 @@ const App = () => {
                     {/* <ion-icon name="search-outline"></ion-icon> */}
 
                     <div className="space-x-4">
-                        <a href="#" className="text-gray-700">Hotels</a>
+                        <a href="#" className="text-gray-700" onClick={() => navigate('/home')}>Home</a>
                         <a href="#" className="text-gray-700">Restaurants</a>
                         <a href="#" className="text-gray-700">Dining Out</a>
                     </div>

@@ -15,12 +15,12 @@ const Home1 = () => {
     const navigate = useNavigate();
 
 
-    const isAuthenticated = useAuth();
+    // const isAuthenticated = useAuth();
 
-    if (!isAuthenticated) {
-        navigate('/')
-        return null; // Or a loading spinner
-    }
+    // if (!isAuthenticated) {
+    //     navigate('/')
+    //     return null; // Or a loading spinner
+    // }
 
     const imageadata = [
         {
@@ -173,7 +173,10 @@ const Home1 = () => {
                         </div>
                     ))}
                 </div>
-
+                {/* Footer */}
+                <footer className="bg-gray-800 text-white text-center py-4">
+                    <p>Copyright ©2024 Hub Consultancy & Services</p>
+                </footer>
 
             </div>
         </>
